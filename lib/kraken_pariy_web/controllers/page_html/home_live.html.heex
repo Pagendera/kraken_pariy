@@ -1,0 +1,24 @@
+<div>
+    <h1>
+        Prices on the kraken crypto exchange
+    </h1>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Ask Price</th>
+                <th>Bid Price</th>
+            </tr>
+            </thead>
+            <tbody phx-update="stream" id="trade_pairs">
+                <tr :for={{dom_id, pair} <- @streams.trade_pairs} id={dom_id}>
+                    <td><%= pair.name %></td>
+                    <td><%= pair.ask_price %></td>
+                    <td><%= pair.bid_price %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

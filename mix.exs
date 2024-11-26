@@ -35,7 +35,7 @@ defmodule KrakenPariy.MixProject do
       {:phoenix, "~> 1.7.12"},
       {:phoenix_html, "~> 4.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.20.2"},
+      {:phoenix_live_view, "~> 0.20.17"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
@@ -54,7 +54,9 @@ defmodule KrakenPariy.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"}
+      {:bandit, "~> 1.2"},
+      {:httpoison, "~> 2.2"},
+      {:websockex, "~> 0.4.3"}
     ]
   end
 

@@ -8,15 +8,9 @@ defmodule KrakenPariy.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      KrakenPariyWeb.Telemetry,
-      {DNSCluster, query: Application.get_env(:kraken_pariy, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: KrakenPariy.PubSub},
-      # Start the Finch HTTP client for sending emails
-      {Finch, name: KrakenPariy.Finch},
-      # Start a worker by calling: KrakenPariy.Worker.start_link(arg)
-      # {KrakenPariy.Worker, arg},
-      # Start to serve requests, typically the last entry
-      KrakenPariyWeb.Endpoint
+      KrakenPariyWeb.Endpoint,
+      KrakenPariy.WebSocket
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
