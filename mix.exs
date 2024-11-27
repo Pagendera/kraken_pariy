@@ -56,7 +56,8 @@ defmodule KrakenPariy.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.2"},
       {:httpoison, "~> 2.2"},
-      {:websockex, "~> 0.4.3"}
+      {:websockex, "~> 0.4.3"},
+      {:mock, "~> 0.3.8", only: :test}
     ]
   end
 
