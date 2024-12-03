@@ -1,5 +1,6 @@
-defmodule KrakenPariyWeb.HomeLiveTest do
-  use ExUnit.Case, async: true
+defmodule KrakenPariy.KrakenClientTest do
+  alias KrakenPariy.Client.KrakenClient
+  use ExUnit.Case
   import Mock
 
   setup do
@@ -23,7 +24,7 @@ defmodule KrakenPariyWeb.HomeLiveTest do
 
   test "fetch_trade_pairs_names/0 retrieves asset pairs", %{mock_response: mock_response} do
     with_mock HTTPoison, [get: fn _ -> {:ok, %{body: Jason.encode!(mock_response)}} end] do
-      result = KrakenPariyWeb.HomeLive.fetch_trade_pairs_names()
+      result = KrakenClient.fetch_trade_pairs_names()
 
       assert Enum.sort(Map.keys(result)) == Enum.sort(["XBTUSD", "ETHUSD"])
       assert result["XBTUSD"]["wsname"] == "XBT/USD"
@@ -32,7 +33,7 @@ defmodule KrakenPariyWeb.HomeLiveTest do
 
   test "fetch_trade_pairs_with_price/0 retrieves ticker prices", %{mock_response: mock_response} do
     with_mock HTTPoison, [get: fn _ -> {:ok, %{body: Jason.encode!(mock_response)}} end] do
-      result = KrakenPariyWeb.HomeLive.fetch_trade_pairs_with_price()
+      result = KrakenClient.fetch_trade_pairs_with_price()
 
       assert length(result) == 2
       first_pair = List.first(Enum.sort_by(result, & &1.name))

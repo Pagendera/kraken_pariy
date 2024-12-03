@@ -1,4 +1,5 @@
 defmodule KrakenPariy.WebSocket do
+  alias KrakenPariy.Client.KrakenClient
   use WebSockex
   require Logger
 
@@ -13,7 +14,7 @@ defmodule KrakenPariy.WebSocket do
 
   @impl true
   def handle_frame({:text, pair}, state) do
-    trade_pairs = KrakenPariyWeb.HomeLive.fetch_trade_pairs_with_price()
+    trade_pairs = KrakenClient.fetch_trade_pairs_with_price()
 
     pair
     |> Jason.decode()
@@ -45,7 +46,7 @@ defmodule KrakenPariy.WebSocket do
         "method" => "subscribe",
         "params" => %{
           "channel" => "ticker",
-          "symbol" => KrakenPariyWeb.HomeLive.fetch_trade_pairs_names() |> Map.values() |> Enum.map(& &1["wsname"])
+          "symbol" => KrakenClient.fetch_trade_pairs_names() |> Map.values() |> Enum.map(& &1["wsname"])
         }
       })
 

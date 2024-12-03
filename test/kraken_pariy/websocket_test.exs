@@ -1,6 +1,8 @@
 defmodule KrakenPariy.WebSocketTest do
+  alias KrakenPariy.Client.KrakenClient
   use ExUnit.Case
   import Mock
+
 
   test "start_link/1 initiates WebSocket connection" do
     with_mock WebSockex, [start_link: fn _, _, _ -> {:ok, :pid} end] do
@@ -9,7 +11,7 @@ defmodule KrakenPariy.WebSocketTest do
   end
 
   test "handle_frame/2 processes valid trade pair data" do
-    with_mock KrakenPariyWeb.HomeLive, [
+    with_mock KrakenClient, [
       fetch_trade_pairs_with_price: fn ->
         [
           %{name: "XBT/USD", ask_price: "50000", bid_price: "49999"},
@@ -42,7 +44,7 @@ defmodule KrakenPariy.WebSocketTest do
   end
 
   test "handle_info/2 sends WebSocket subscription request" do
-    with_mock KrakenPariyWeb.HomeLive, [
+    with_mock KrakenClient, [
       fetch_trade_pairs_names: fn -> %{
         "XBTUSD" => %{"wsname" => "XBT/USD"},
         "ETHUSD" => %{"wsname" => "ETH/USD"}
